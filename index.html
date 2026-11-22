@@ -115,7 +115,8 @@
     </div>
 </div>
 <script type="module">
-    import { FaceLandmarker, FilesetResolver } from "https://" + ["cdn", "jsdelivr", "net"].join(".") + "/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
+    import { FaceLandmarker, FilesetResolver } from "https://jsdelivr.net";
+
 
     const video = document.getElementById("webcam");
     const canvas = document.getElementById("hudCanvas");
@@ -139,12 +140,13 @@
         if (landmarker) return;
         document.getElementById("sysStatus").innerText = "YAPAY ZEKA MODELİ YÜKLENİYOR...";
         addLog("MediaPipe FaceLandmarker v2 indiriliyor...");
-        const vision = await FilesetResolver.forVisionTasks("https://" + ["cdn", "jsdelivr", "net"].join(".") + "/npm/@mediapipe/tasks-vision@0.10.14/wasm");
+                const vision = await FilesetResolver.forVisionTasks("https://jsdelivr.net");
         landmarker = await FaceLandmarker.createFromOptions(vision, {
             baseOptions: {
-                modelAssetPath: "https://" + ["storage", "googleapis", "com"].join(".") + "/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+                modelAssetPath: "https://googleapis.com",
                 delegate: "GPU"
             },
+
             outputFaceBlendshapes: true,
             runningMode: "VIDEO",
             numFaces: 2
