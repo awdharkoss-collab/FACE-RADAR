@@ -116,8 +116,8 @@
     </div>
 </div>
 <script type="module">
-    const CDN = ["https:", "", "cdn.jsdelivr.net", "npm", "@mediapipe", "tasks-vision@0.10.14"].join("/");
-    const MODEL_URL = ["https:", "", "://googleapis.com", "mediapipe-models", "face_landmarker", "face_landmarker", "float16", "1", "face_landmarker.task"].join("/");
+    const CDN = "https://" + "cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+    const MODEL_URL = "https://" + "://googleapis.com";
 
     const video = document.getElementById("webcam");
     const canvas = document.getElementById("hudCanvas");
@@ -154,7 +154,7 @@
     window.startCamera = async function() {
         try {
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                throw new Error("Tarayıcı kamera API'sini desteklemiyor (HTTPS gerekli).");
+                throw new Error("Tarayıcı kamera API'sini desteklemiyor.");
             }
             if (video.srcObject) video.srcObject.getTracks().forEach(function(t) { t.stop(); });
             let stream = null;
@@ -175,7 +175,7 @@
             document.getElementById("sysStatus").innerText = "RADAR AKTİF • CANLI TARAMA (60 FPS)";
         } catch (err) {
             document.getElementById("sysStatus").innerText = "HATA: " + (err && err.name ? err.name : "Kamera Yok");
-            addLog("DETAY: " + (err && err.message ? err.message : String(err)) + " — 'Fotoğraf / Video Tara' butonunu kullanabilirsiniz.");
+            addLog("DETAY: " + (err && err.message ? err.message : String(err)));
         }
     };
 
@@ -311,11 +311,12 @@
             ctx.fillStyle = "#ef4444";
             ctx.fillRect(-w * 0.35, -2, w * 0.7, 3);
             ctx.restore();
-}
-}
-function predictLoop() {
-if (!running) return;
-if (video.videoWidth && canvas.width !== video.videoWidth) {
+        }
+    }
+
+    function predictLoop() {
+        if (!running) return;
+        if (video.videoWidth && canvas.width !== video.videoWidth) {
 canvas.width = video.videoWidth;
 canvas.height = video.videoHeight;
 }
@@ -356,7 +357,6 @@ a.download = "FACE-RADAR-BIOMETRIK-KART.png";
 a.click();
 addLog("Biyometrik kimlik kartı PNG olarak indirildi.");
 };
-        
 </script>
 </body>
 </html>
